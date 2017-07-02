@@ -5,6 +5,8 @@ services:
     image: elasticsearch:alpine
     ports:
       - 9200:9200
+    volumes:
+      - ./elasticsearch-data:/usr/share/elasticsearch/data
   logstash:
     image: logstash:alpine
     command: logstash -f /etc/logstash/logstash.conf

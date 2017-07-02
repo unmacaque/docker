@@ -10,6 +10,7 @@ services:
       GRAPHITE_API_CONFIG: /etc/graphite-api.yml
     volumes:
       - ./graphite-api.yml:/etc/graphite-api.yml
+      - ./graphite-storage:/opt/graphite/storage/whisper
   grafana:
     image: grafana/grafana
     ports:
