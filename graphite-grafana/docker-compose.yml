@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  graphite:
+    image: ennexa/graphite
+    ports:
+      - 2003:2003
+      - 8000:8000
+    environment:
+      GRAPHITE_API_CONFIG: /etc/graphite-api.yml
+    volumes:
+      - ./graphite-api.yml:/etc/graphite-api.yml
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
