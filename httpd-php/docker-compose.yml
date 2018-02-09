@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  apache:
+    image: httpd:2-alpine
+    ports:
+      - 8080:80
+    volumes:
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./htdocs:/usr/local/apache2/htdocs/
+  php-fpm:
+    image: php:7-fpm-alpine
+    ports:
+      - 9000:9000
+    volumes:
+      - ./htdocs:/var/www/html
+    links:
+      - apache
