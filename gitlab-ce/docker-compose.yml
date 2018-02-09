@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    restart: always
+    hostname: gitlab.localdomain
+    ports:
+      - "8022:22"
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - GITLAB_ROOT_PASSWORD=gitlabadmin
+      - GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN=gitlabdocker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./gitlab/config:/etc/gitlab
+      - ./gitlab/logs:/var/log/gitlab
+      - ./gitlab/data:/var/opt/gitlab
