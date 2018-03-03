@@ -1,5 +1,6 @@
-FROM archlinux
+FROM archlinux/base
 
+RUN pacman -Sy
 RUN pacman -S --noconfirm base-devel cmake git
 RUN yes | pacman -Scc --noconfirm
 
@@ -10,11 +11,12 @@ RUN chmod 440 /etc/sudoers.d/g_wheel && \
 
 ENV PATH="/usr/local/x-tools7h/arm-unknown-linux-gnueabihf/bin:$PATH"
 ADD makepkg-armv7h.conf /etc/makepkg.conf
+ADD pacman-armv7h.conf /etc/pacman-armv7h.conf
 ADD pacman-armv7h.sh /usr/local/bin/pacman-armv7h
 RUN chmod +x /usr/local/bin/pacman-armv7h && \
-    mkdir -p /usr/local/x-tools7h/arm-unknown-linux-gnueabihf/arm-unknown-linux-gnueabihf/sysroot/ && \
-    chmod -R u+w /usr/local/x-tools7h/arm-unknown-linux-gnueabihf/arm-unknown-linux-gnueabihf/sysroot/
+    mkdir -p /usr/local/x-tools7h/ && \
+    chmod -R u+w /usr/local/x-tools7h/
 
-VOLUME /usr/local/x-tools7h/arm-unknown-linux-gnueabihf/arm-unknown-linux-gnueabihf/sysroot
+VOLUME /usr/local/x-tools7h
 USER arch
 ENTRYPOINT ["/bin/bash"]
