@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   zookeeper:
@@ -14,21 +14,12 @@ services:
     restart: always
     environment:
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092,SSL://localhost:9492
-      - KAFKA_SSL_CLIENT_AUTH=required
-      - KAFKA_SSL_KEYSTORE_FILENAME=kafka-broker.jks
-      - KAFKA_SSL_KEYSTORE_CREDENTIALS=kafka-broker-store.pw
-      - KAFKA_SSL_KEY_CREDENTIALS=kafka-broker-key.pw
-      - KAFKA_SSL_TRUSTSTORE_FILENAME=kafka-trust.jks
-      - KAFKA_SSL_TRUSTSTORE_CREDENTIALS=kafka-trust-store.pw
-      - KAFKA_SECURITY_INTER_BROKER_PROTOCOL=SSL
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
       - JMX_PORT=9999
     volumes:
       - ./kafka-data:/var/lib/kafka/data
-      - ./secrets:/etc/kafka/secrets
     ports:
       - 9092:9092
-      - 9492:9492
       - 9999:9999
     depends_on:
       - zookeeper
@@ -37,24 +28,10 @@ services:
     restart: always
     environment:
       - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=zookeeper:2181
-      - SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=SSL://kafka:9492
-      - SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081,https://schema-registry:8481
-      - SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL=SSL
-      - SCHEMA_REGISTRY_KAFKASTORE_SSL_KEYSTORE_LOCATION=/etc/kafka/secrets/kafka-schema.jks
-      - SCHEMA_REGISTRY_KAFKASTORE_SSL_KEYSTORE_PASSWORD=kafkaschema
-      - SCHEMA_REGISTRY_KAFKASTORE_SSL_KEY_PASSWORD=kafkaschema
-      - SCHEMA_REGISTRY_KAFKASTORE_SSL_TRUSTSTORE_LOCATION=/etc/kafka/secrets/kafka-trust.jks
-      - SCHEMA_REGISTRY_KAFKASTORE_SSL_TRUSTSTORE_PASSWORD=kafkatrust
+      - SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=PLAINTEXT://kafka:9092
+      - SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081
       - SCHEMA_REGISTRY_HOST_NAME=schema-registry
-      - SCHEMA_REGISTRY_SSL_KEYSTORE_LOCATION=/etc/kafka/secrets/kafka-schema.jks
-      - SCHEMA_REGISTRY_SSL_KEYSTORE_PASSWORD=kafkaschema
-      - SCHEMA_REGISTRY_SSL_KEY_PASSWORD=kafkaschema
-      - SCHEMA_REGISTRY_SSL_TRUSTSTORE_LOCATION=/etc/kafka/secrets/kafka-trust.jks
-      - SCHEMA_REGISTRY_SSL_TRUSTSTORE_PASSWORD=kafkatrust
-    volumes:
-      - ./secrets:/etc/kafka/secrets
     ports:
       - 8081:8081
-      - 8481:8481
     depends_on:
       - kafka
