@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  gogs:
+    image: gogs/gogs
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./gogs-data:/data
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5
+    restart: always
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=gogs
+      - MYSQL_USER=gogs
+      - MYSQL_PASSWORD=gogspass
+      - MYSQL_ROOT_PASSWORD=masterpass
