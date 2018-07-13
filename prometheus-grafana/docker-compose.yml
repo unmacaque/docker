@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   prometheus:
@@ -13,8 +13,8 @@ services:
     image: grafana/grafana:5.2.1
     restart: always
     environment:
-      - "GF_SECURITY_ADMIN_USER=admin"
-      - "GF_SECURITY_ADMIN_PASSWORD=admin"
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
     ports:
       - 3000:3000
     volumes:

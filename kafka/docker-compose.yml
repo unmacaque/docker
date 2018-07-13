@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   zookeeper:
@@ -16,7 +16,6 @@ services:
       KAFKA_CREATE_TOPICS: "test:2:1"
       KAFKA_ZOOKEEPER_CONNECT: localhost:2181
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - ./kafka:/kafka
     depends_on:
       - zookeeper

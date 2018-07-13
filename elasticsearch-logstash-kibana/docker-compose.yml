@@ -3,25 +3,28 @@ version: '3'
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.0
+    restart: always
     ports:
       - 9200:9200
       - 9300:9300
     environment:
-      - discovery.type=single-node
+      discovery.type: single-node
     volumes:
       - ./es-data:/usr/share/elasticsearch/data
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:6.2.0
+    restart: always
+    ports:
+      - 5601:5601
+    links:
+      - elasticsearch
   logstash:
     image: logstash:alpine
     command: logstash -f /etc/logstash/logstash.conf
+    restart: always
     ports:
       - 9600:9600
     volumes:
       - ./logstash.conf:/etc/logstash/logstash.conf
-    links:
-      - elasticsearch
-  kibana:
-    image: docker.elastic.co/kibana/kibana-oss:6.2.0
-    ports:
-      - 5601:5601
     links:
       - elasticsearch
