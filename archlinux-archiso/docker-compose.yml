@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  archiso-build-baseline:
+    build: .
+    privileged: true
+    volumes:
+    - ./out:/out
+    - /var/cache/pacman/pkg:/var/cache/pacman/pkg
