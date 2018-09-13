@@ -12,4 +12,7 @@ services:
       INFLUXDB_USER: graphite
       INFLUXDB_USER_PASSWORD: graphite
     volumes:
-      - ./influx-data:/var/lib/influxdb
+      - influx-data:/var/lib/influxdb
+
+volumes:
+  influx-data:

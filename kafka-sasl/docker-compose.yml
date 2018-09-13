@@ -22,8 +22,11 @@ services:
       CUSTOM_INIT_SCRIPT: "export KAFKA_OPTS=\"-Djava.security.auth.login.config=/etc/kafka/kafka-broker_jaas.conf\""
       KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.auth.SimpleAclAuthorizer
     volumes:
-      - ./kafka:/kafka
+      - kafka-data:/kafka
       - ./kafka-broker_jaas.conf:/etc/kafka/kafka-broker_jaas.conf
     depends_on:
       - zookeeper
     network_mode: host
+
+volumes:
+  kafka-data:

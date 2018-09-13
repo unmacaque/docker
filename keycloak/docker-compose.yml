@@ -16,9 +16,12 @@ services:
     image: mariadb:10.2
     restart: always
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: keycloak
       MYSQL_USER: keycloak
       MYSQL_PASSWORD: password
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+
+volumes:
+  mariadb-data:

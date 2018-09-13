@@ -16,7 +16,10 @@ services:
       KAFKA_CREATE_TOPICS: "test:2:1"
       KAFKA_ZOOKEEPER_CONNECT: localhost:2181
     volumes:
-      - ./kafka:/kafka
+      - kafka-data:/kafka
     depends_on:
       - zookeeper
     network_mode: host
+
+volumes:
+  kafka-data:

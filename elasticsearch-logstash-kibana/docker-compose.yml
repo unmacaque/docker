@@ -10,7 +10,7 @@ services:
     environment:
       discovery.type: single-node
     volumes:
-      - ./es-data:/usr/share/elasticsearch/data
+      - elasticsearch-data:/usr/share/elasticsearch/data
   kibana:
     image: docker.elastic.co/kibana/kibana-oss:6.2.0
     restart: always
@@ -28,3 +28,6 @@ services:
       - ./logstash.conf:/etc/logstash/logstash.conf
     links:
       - elasticsearch
+
+volumes:
+  elasticsearch-data:
