@@ -6,9 +6,9 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     volumes:
-      - zk-data:/var/lib/zookeeper/data
+    - zk-data:/var/lib/zookeeper/data
     ports:
-      - 2181:2181
+    - 2181:2181
   kafka:
     image: confluentinc/cp-kafka
     restart: always
@@ -17,12 +17,12 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       JMX_PORT: 9999
     volumes:
-      - kafka-data:/var/lib/kafka/data
+    - kafka-data:/var/lib/kafka/data
     ports:
-      - 9092:9092
-      - 9999:9999
+    - 9092:9092
+    - 9999:9999
     depends_on:
-      - zookeeper
+    - zookeeper
   schema-registry:
     image: confluentinc/cp-schema-registry
     restart: always
@@ -32,9 +32,9 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
     ports:
-      - 8081:8081
+    - 8081:8081
     depends_on:
-      - kafka
+    - kafka
   kafka-rest:
     image: confluentinc/cp-kafka-rest
     restart: always
@@ -44,10 +44,10 @@ services:
       KAFKA_REST_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       KAFKA_REST_HOST_NAME: localhost
     ports:
-      - 8082:8082
+    - 8082:8082
     depends_on:
-      - kafka
-      - schema-registry
+    - kafka
+    - schema-registry
 
 volumes:
   zk-data:

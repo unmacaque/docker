@@ -12,6 +12,6 @@ services:
       REGISTRATION_TOKEN: gitlabdocker
       REGISTER_NON_INTERACTIVE: "true"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./config:/etc/gitlab-runner
+    - /var/run/docker.sock:/var/run/docker.sock
+    - ./config:/etc/gitlab-runner
     network_mode: host

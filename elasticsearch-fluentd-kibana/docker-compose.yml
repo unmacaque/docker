@@ -5,31 +5,31 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.0
     restart: always
     ports:
-      - 9200:9200
-      - 9300:9300
+    - 9200:9200
+    - 9300:9300
     environment:
       discovery.type: single-node
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
+    - elasticsearch-data:/usr/share/elasticsearch/data
   kibana:
     image: docker.elastic.co/kibana/kibana-oss:6.2.0
     restart: always
     ports:
-      - 5601:5601
+    - 5601:5601
     links:
-      - elasticsearch
+    - elasticsearch
   fluentd:
     build: ./fluentd
     restart: always
     ports:
-      - 24224:24224
-      - 24224:24224/udp
+    - 24224:24224
+    - 24224:24224/udp
     environment:
       FLUENTD_CONF: in_docker.conf
     volumes:
-      - ./fluent.conf:/fluentd/etc/in_docker.conf
+    - ./fluent.conf:/fluentd/etc/in_docker.conf
     links:
-      - elasticsearch
+    - elasticsearch
 
 volumes:
   elasticsearch-data:
