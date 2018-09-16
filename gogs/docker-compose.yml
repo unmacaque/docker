@@ -2,25 +2,25 @@ version: '3'
 
 services:
   gogs:
-    image: gogs/gogs
+    image: gogs/gogs:0.11.53
     restart: always
     ports:
     - 3000:3000
     volumes:
     - gogs-data:/data
     depends_on:
-    - mysql
-  mysql:
-    image: mysql:5
+    - mariadb
+  mariadb:
+    image: mariadb:10.2
     restart: always
     volumes:
-    - mysql-data:/var/lib/mysql
+    - mariadb-data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: gogs
       MYSQL_USER: gogs
-      MYSQL_PASSWORD: gogspass
-      MYSQL_ROOT_PASSWORD: masterpass
+      MYSQL_PASSWORD: gogs
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
 
 volumes:
   gogs-data:
-  mysql-data:
+  mariadb-data:
