@@ -1,7 +1,7 @@
 FROM archlinux/base
 
-RUN pacman -Sy
-RUN pacman -S --noconfirm base-devel cmake git
+RUN pacman -Sy && \
+    pacman -S --noconfirm base-devel cmake git
 RUN yes | pacman -Scc --noconfirm
 
 ADD g_wheel /etc/sudoers.d/
