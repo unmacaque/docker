@@ -2,18 +2,25 @@ version: '3'
 
 services:
   gitlab:
-    image: gitlab/gitlab-ce:latest
+    image: gitlab/gitlab-ce:11.2.3-ce.0
     restart: always
-    hostname: gitlab.localdomain
+    hostname: localhost:8080
     ports:
     - "8022:22"
-    - "8080:80"
+    - "8080:8081"
     - "8443:443"
     environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        nginx['listen_port'] = 8081
       GITLAB_ROOT_PASSWORD: gitlabadmin
       GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN: gitlabdocker
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-    - ./gitlab/config:/etc/gitlab
-    - ./gitlab/logs:/var/log/gitlab
-    - ./gitlab/data:/var/opt/gitlab
+    - gitlab-config:/etc/gitlab
+    - gitlab-logs:/var/log/gitlab
+    - gitlab-data:/var/opt/gitlab
+
+volumes:
+  gitlab-config:
+  gitlab-data:
+  gitlab-logs:

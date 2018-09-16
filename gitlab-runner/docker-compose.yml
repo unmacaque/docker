@@ -2,16 +2,23 @@ version: '3'
 
 services:
   gitlab-runner:
-    image: gitlab/gitlab-runner:alpine
-    restart: always
+    image: gitlab/gitlab-runner:alpine-v11.2.0
     environment:
       CI_SERVER_URL: http://localhost:8080
       RUNNER_NAME: docker
       RUNNER_EXECUTOR: docker
       DOCKER_IMAGE: maven:3-jdk-8-alpine
+      DOCKER_NETWORK_MODE: host
+      DOCKER_VOLUMES: "gitlab-runner_maven-repo:/root/.m2"
       REGISTRATION_TOKEN: gitlabdocker
       REGISTER_NON_INTERACTIVE: "true"
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-    - ./config:/etc/gitlab-runner
+    - gitlab-runner-config:/etc/gitlab-runner
+    - gitlab-runner-home:/home/gitlab-runner
     network_mode: host
+
+volumes:
+  gitlab-runner-config:
+  gitlab-runner-home:
+  maven-repo:
