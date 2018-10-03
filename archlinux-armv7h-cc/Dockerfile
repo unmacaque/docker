@@ -1,8 +1,8 @@
 FROM archlinux/base
 
 RUN pacman -Sy && \
-    pacman -S --noconfirm base-devel cmake git
-RUN yes | pacman -Scc --noconfirm
+    pacman -S --noconfirm base-devel cmake git && \
+    yes | pacman -Scc --noconfirm
 
 ADD g_wheel /etc/sudoers.d/
 RUN chmod 440 /etc/sudoers.d/g_wheel && \
@@ -17,6 +17,8 @@ RUN chmod +x /usr/local/bin/pacman-armv7h && \
     mkdir -p /usr/local/x-tools7h/ && \
     chmod -R u+w /usr/local/x-tools7h/
 
+VOLUME /mnt
 VOLUME /usr/local/x-tools7h
+WORKDIR /mnt
 USER arch
-ENTRYPOINT ["/bin/bash"]
+CMD ["makepkg", "-f"]
