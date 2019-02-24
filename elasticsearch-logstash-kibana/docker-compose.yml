@@ -23,6 +23,7 @@ services:
     command: logstash -f /etc/logstash/logstash.conf
     restart: always
     ports:
+    - 9514:9514/udp
     - 9600:9600
     volumes:
     - ./logstash.conf:/etc/logstash/logstash.conf
