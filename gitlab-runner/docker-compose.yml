@@ -2,12 +2,12 @@ version: '3'
 
 services:
   gitlab-runner:
-    image: gitlab/gitlab-runner:alpine-v11.2.0
+    image: gitlab/gitlab-runner:alpine-v11.8.0
     environment:
       CI_SERVER_URL: http://localhost:8080
       RUNNER_NAME: docker
       RUNNER_EXECUTOR: docker
-      DOCKER_IMAGE: maven:3-jdk-8-alpine
+      DOCKER_IMAGE: maven:3-jdk-11-slim
       DOCKER_NETWORK_MODE: host
       DOCKER_VOLUMES: "gitlab-runner_maven-repo:/root/.m2"
       REGISTRATION_TOKEN: gitlabdocker
