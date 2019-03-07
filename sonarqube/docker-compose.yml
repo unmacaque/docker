@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  sonarqube:
+    image: sonarqube:lts-alpine
+    ports:
+    - 9000:9000
+    volumes:
+    - sonarqube-data:/opt/sonarqube/data
+
+volumes:
+  sonarqube-data:
