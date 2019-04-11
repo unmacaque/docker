@@ -11,7 +11,7 @@ services:
     depends_on:
     - mariadb
   mariadb:
-    image: mariadb:10.2
+    image: mariadb:10.4
     restart: always
     volumes:
     - mariadb-data:/var/lib/mysql

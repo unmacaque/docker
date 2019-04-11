@@ -2,7 +2,7 @@ version: '3'
 
 services:
   keycloak:
-    image: jboss/keycloak:4.4.0.Final
+    image: jboss/keycloak:5.0.0
     restart: always
     ports:
     - 8180:8080
@@ -17,7 +17,7 @@ services:
     depends_on:
     - mariadb
   mariadb:
-    image: mariadb:10.3
+    image: mariadb:10.4
     restart: always
     volumes:
     - mariadb-data:/var/lib/mysql
