@@ -2,47 +2,47 @@ version: '3'
 
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper
+    image: confluentinc/cp-zookeeper:5.2.1
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     volumes:
-    - zk-data:/var/lib/zookeeper/data
+    - zookeeper-data:/var/lib/zookeeper/data
+    - zookeeper-log:/var/lib/zookeeper/log
+    - zookeeper-secrets:/etc/zookeeper/secrets
     ports:
     - 2181:2181
   kafka:
-    image: confluentinc/cp-kafka
+    image: confluentinc/cp-kafka:5.2.1
     restart: always
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-      JMX_PORT: 9999
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://:9092
     volumes:
     - kafka-data:/var/lib/kafka/data
+    - kafka-secrets:/etc/kafka/secrets
     ports:
     - 9092:9092
-    - 9999:9999
     depends_on:
     - zookeeper
   schema-registry:
-    image: confluentinc/cp-schema-registry
+    image: confluentinc/cp-schema-registry:5.2.1
     restart: always
     environment:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
-      SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
+    volumes:
+    - schema-registry-secrets:/etc/schema-registry/secrets
     ports:
     - 8081:8081
     depends_on:
     - kafka
   kafka-rest:
-    image: confluentinc/cp-kafka-rest
+    image: confluentinc/cp-kafka-rest:5.2.1
     restart: always
     environment:
       KAFKA_REST_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_REST_LISTENERS: http://kafka-rest:8082
       KAFKA_REST_SCHEMA_REGISTRY_URL: http://schema-registry:8081
-      KAFKA_REST_HOST_NAME: localhost
+      KAFKA_REST_HOST_NAME: kafka-rest
     ports:
     - 8082:8082
     depends_on:
@@ -50,5 +50,9 @@ services:
     - schema-registry
 
 volumes:
-  zk-data:
+  zookeeper-data:
+  zookeeper-log:
+  zookeeper-secrets:
   kafka-data:
+  kafka-secrets:
+  schema-registry-secrets:
