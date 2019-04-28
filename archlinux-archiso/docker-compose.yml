@@ -5,5 +5,5 @@ services:
     build: .
     privileged: true
     volumes:
-    - ./out:/out
-    - /var/cache/pacman/pkg:/var/cache/pacman/pkg
+      - ./out:/out
+      - /var/cache/pacman/pkg:/var/cache/pacman/pkg

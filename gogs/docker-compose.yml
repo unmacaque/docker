@@ -5,16 +5,16 @@ services:
     image: gogs/gogs:0.11.53
     restart: always
     ports:
-    - 3000:3000
+      - 3000:3000
     volumes:
-    - gogs-data:/data
+      - gogs-data:/data
     depends_on:
-    - mariadb
+      - mariadb
   mariadb:
     image: mariadb:10.4
     restart: always
     volumes:
-    - mariadb-data:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: gogs
       MYSQL_USER: gogs

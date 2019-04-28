@@ -4,7 +4,7 @@ services:
   gatling:
     image: denvazh/gatling:3.0.1
     volumes:
-    - ./conf:/opt/gatling/conf
-    - ./results:/opt/gatling/results
-    - ./user-files:/opt/gatling/user-files
+      - ./conf:/opt/gatling/conf
+      - ./results:/opt/gatling/results
+      - ./user-files:/opt/gatling/user-files
     network_mode: host

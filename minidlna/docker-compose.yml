@@ -4,17 +4,17 @@ services:
   minidlna:
     image: vladgh/minidlna:0.3
     ports:
-    - 8200:8200
+      - 8200:8200
     environment:
       MINIDLNA_MEDIA_DIR_1: A,/media/audio
       MINIDLNA_MEDIA_DIR_2: P,/media/pictures
       MINIDLNA_MEDIA_DIR_3: V,/media/video
       MINIDLNA_FRIENDLY_NAME: Docker
     volumes:
-    - ~/Music:/media/audio
-    - ~/Pictures:/media/pictures
-    - ~/Video:/media/video
-    - minidlna-data:/var/lib/minidlna
+      - ~/Music:/media/audio
+      - ~/Pictures:/media/pictures
+      - ~/Video:/media/video
+      - minidlna-data:/var/lib/minidlna
     network_mode: host
 
 volumes:

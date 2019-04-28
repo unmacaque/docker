@@ -5,16 +5,16 @@ services:
     image: zookeeper:3.5
     restart: always
     ports:
-    - 2181:2181
+      - 2181:2181
     volumes:
-    - zk-data:/data
-    - zk-datalog:/datalog
+      - zk-data:/data
+      - zk-datalog:/datalog
   kafka:
     image: wurstmeister/kafka:2.11-1.1.0
     restart: always
     ports:
-    - 9092:9092
-    - 9093:9093
+      - 9092:9092
+      - 9093:9093
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_LISTENERS: PLAINTEXT://:9092,SASL_PLAINTEXT://:9093
@@ -27,11 +27,11 @@ services:
       KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kafka-broker_jaas.conf"
       KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.auth.SimpleAclAuthorizer
     volumes:
-    - kafka-data:/kafka
-    - /var/run/docker.sock:/var/run/docker.sock
-    - ./kafka-broker_jaas.conf:/etc/kafka/kafka-broker_jaas.conf
+      - kafka-data:/kafka
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./kafka-broker_jaas.conf:/etc/kafka/kafka-broker_jaas.conf
     depends_on:
-    - zookeeper
+      - zookeeper
 
 volumes:
   zk-data:

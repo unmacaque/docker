@@ -4,15 +4,15 @@ services:
   mongo:
     image: mongo:3
     volumes:
-    - mongo-data:/data/db
+      - mongo-data:/data/db
   wikijs:
     image: requarks/wiki
     environment:
       WIKI_ADMIN_EMAIL: admin@example.com
     ports:
-    - 3000:3000
+      - 3000:3000
     volumes:
-    - ./wiki-config.yml:/var/wiki/config.yml
+      - ./wiki-config.yml:/var/wiki/config.yml
 
 volumes:
   mongo-data:
