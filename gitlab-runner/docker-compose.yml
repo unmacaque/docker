@@ -2,7 +2,7 @@ version: '3'
 
 services:
   gitlab-runner:
-    image: gitlab/gitlab-runner:alpine-v11.9.0
+    image: gitlab/gitlab-runner:alpine-v11.11.2
     environment:
       CI_SERVER_URL: http://localhost:8080
       RUNNER_NAME: docker
