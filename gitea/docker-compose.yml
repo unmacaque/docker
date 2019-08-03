@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  gogs:
-    image: gogs/gogs:0.11.53
+  gitea:
+    image: gitea/gitea:1
     restart: always
     ports:
       - 3000:3000
     volumes:
-      - gogs-data:/data
+      - gitea-data:/data
     depends_on:
       - mariadb
   mariadb:
@@ -16,11 +16,11 @@ services:
     volumes:
       - mariadb-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: gogs
-      MYSQL_USER: gogs
-      MYSQL_PASSWORD: gogs
+      MYSQL_DATABASE: gitea
+      MYSQL_USER: gitea
+      MYSQL_PASSWORD: gitea
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
 
 volumes:
-  gogs-data:
+  gitea-data:
   mariadb-data:
