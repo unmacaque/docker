@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  drone:
+    image: drone/drone:1
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      DRONE_GITEA_SERVER: http://gitea:3000/
+      DRONE_SERVER_HOST: drone:8080
+      DRONE_SERVER_PROTO: http
+      DRONE_AGENTS_ENABLED: "true"
+      DRONE_RPC_SECRET: gitearpcsecret
+    volumes:
+      - drone-data:/data
+  agent:
+    image: drone/agent:1
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      DRONE_RUNNER_NAME: docker
+      DRONE_RPC_HOST: drone:8080
+      DRONE_RPC_PROTO: http
+      DRONE_RPC_SECRET: gitearpcsecret
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  drone-data:
