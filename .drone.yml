@@ -1,0 +1,10 @@
+kind: pipeline
+name: build
+
+steps:
+  - name: lint
+    image: python:3-alpine
+    pull: always
+    commands:
+      - pip install yamllint
+      - yamllint -d relaxed .
