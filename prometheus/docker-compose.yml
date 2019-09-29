@@ -2,14 +2,24 @@ version: '3'
 
 services:
   prometheus:
-    image: prom/prometheus:v2.10.0
+    image: prom/prometheus:v2.12.0
     restart: always
     ports:
       - 9090:9090
     volumes:
       - prometheus-data:/prometheus
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/etc/prometheus/
+    network_mode: host
+  alertmanager:
+    image: prom/alertmanager:v0.19.0
+    restart: always
+    ports:
+      - 9093:9093
+    volumes:
+      - alertmanager-data:/alertmanager
+      - ./alertmanager:/etc/alertmanager/
     network_mode: host
 
 volumes:
   prometheus-data:
+  alertmanager-data:
