@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   minidlna:
-    image: vladgh/minidlna:0.3
+    image: vladgh/minidlna:0
     ports:
       - 8200:8200
     environment:

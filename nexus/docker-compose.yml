@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   nexus:
-    image: sonatype/nexus3:3.19.1
+    image: sonatype/nexus3:3.22.0
     restart: always
     ports:
       - 8081:8081

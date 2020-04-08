@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   portainer:
-    image: portainer/portainer:1.22.0
+    image: portainer/portainer:1.23.2
     restart: always
     ports:
       - 9000:9000
