@@ -1,15 +1,17 @@
-version: '3'
+version: "3"
 
 services:
   openldap:
-    image: osixia/openldap:stable
+    image: osixia/openldap-backup:stable
     ports:
       - 389:389
       - 636:636
     volumes:
+      - openldap-backup:/data/backup
       - openldap-config:/etc/ldap/slap.d/
       - openldap-data:/var/lib/ldap/
 
 volumes:
+  openldap-backup:
   openldap-config:
   openldap-data:
