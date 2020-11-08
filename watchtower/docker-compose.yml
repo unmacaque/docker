@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  watchtower:
+    image: containrrr/watchtower:1.0.3
+    environment:
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_MONITOR_ONLY: "true"
+      WATCHTOWER_POLL_INTERVAL: 86400
+      WATCHTOWER_RUN_ONCE: "true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
