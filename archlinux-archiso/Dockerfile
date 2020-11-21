@@ -1,11 +1,11 @@
-FROM archlinux/base
+FROM archlinux/archlinux
 
-RUN pacman -Sy
-RUN pacman -S --noconfirm archiso
-RUN yes | pacman -Scc --noconfirm
+RUN pacman -Syu && \
+    pacman -S --noconfirm archiso && \
+    pacman -Scc --noconfirm
 
 VOLUME /work
 VOLUME /out
 VOLUME /var/cache/pacman/pkg
 
-ENTRYPOINT ["/usr/share/archiso/configs/baseline/build.sh"]
+ENTRYPOINT ["mkarchiso", "-w", "/work", "-o", "/out"]
