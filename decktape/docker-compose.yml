@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  decktape:
+    image: astefanutti/decktape:3
+    volumes:
+      - ${PWD}:/slides
+    network_mode: host
+    command: ["http://localhost:8000", "slides.pdf"]
