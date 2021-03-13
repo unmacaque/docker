@@ -1,18 +1,28 @@
-version: '3'
+version: "3"
 
 services:
-  mongo:
-    image: mongo:3
-    volumes:
-      - mongo-data:/data/db
   wikijs:
-    image: requarks/wiki
+    image: requarks/wiki:2
+    restart: always
     environment:
-      WIKI_ADMIN_EMAIL: admin@example.com
+      DB_TYPE: mariadb
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USER: wikijs
+      DB_PASS: wikijs
+      DB_NAME: wikijs
     ports:
       - 3000:3000
+  mariadb:
+    image: mariadb:10.5
+    restart: always
     volumes:
-      - ./wiki-config.yml:/var/wiki/config.yml
+      - mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: wikijs
+      MYSQL_USER: wikijs
+      MYSQL_PASSWORD: wikijs
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
 
 volumes:
-  mongo-data:
+  mariadb-data:
