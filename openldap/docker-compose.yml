@@ -2,15 +2,14 @@ version: "3"
 
 services:
   openldap:
-    image: osixia/openldap-backup:stable
+    image: bitnami/openldap:2
     restart: always
     ports:
-      - 389:389
-      - 636:636
+      - 389:1389
+      - 636:1636
+    env_file: .env
     volumes:
-      - openldap-backup:/data/backup
-      - openldap-config:/etc/ldap/slap.d/
-      - openldap-data:/var/lib/ldap/
+      - openldap-data:/bitnami/openldap
   phpldapadmin:
     image: osixia/phpldapadmin:stable
     restart: always
@@ -18,12 +17,10 @@ services:
       - "8080:80"
       - "8443:443"
     environment:
-      PHPLDAPADMIN_LDAP_HOSTS: openldap
+      PHPLDAPADMIN_LDAP_HOSTS: openldap:1389
     volumes:
       - phpldapadmin-data:/var/www/phpldapadmin
 
 volumes:
-  openldap-backup:
-  openldap-config:
   openldap-data:
   phpldapadmin-data:
