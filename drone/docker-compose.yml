@@ -2,7 +2,7 @@ version: '3'
 
 services:
   drone:
-    image: drone/drone:1
+    image: drone/drone:2
     restart: always
     ports:
       - 8080:80
@@ -14,8 +14,8 @@ services:
       DRONE_RPC_SECRET: gitearpcsecret
     volumes:
       - drone-data:/data
-  agent:
-    image: drone/agent:1
+  drone-runner:
+    image: drone/drone-runner-docker:1-linux-amd64
     restart: always
     ports:
       - 3000:3000
