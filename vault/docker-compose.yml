@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  vault:
+    image: vault:1.7.2
+    ports:
+      - 8200:8200
+    volumes:
+      - vault-data:/vault/file
+      - vault-logs:/vault/logs
+
+volumes:
+  vault-data:
+  vault-logs:
