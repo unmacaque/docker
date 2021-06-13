@@ -2,10 +2,11 @@ version: "3"
 
 services:
   gitea:
-    image: gitea/gitea:1
+    image: gitea/gitea:1-rootless
     restart: always
     ports:
       - 3000:3000
+      - 8022:8022
     volumes:
       - gitea-data:/data
     environment:
@@ -15,6 +16,7 @@ services:
       DB_USER: gitea
       DB_PASSWD: gitea
       SSH_DOMAIN: gitea
+      SSH_PORT: 8022
     depends_on:
       - mariadb
   mariadb:
