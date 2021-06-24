@@ -2,30 +2,12 @@ version: "3"
 
 services:
   keycloak:
-    image: jboss/keycloak:12.0.0
+    image: jboss/keycloak:14.0.0
     restart: always
     ports:
       - 8180:8080
     environment:
       KEYCLOAK_USER: keycloak
       KEYCLOAK_PASSWORD: keycloak
-      DB_VENDOR: mariadb
-      DB_ADDR: mariadb
-      DB_PORT: 3306
-      DB_DATABASE: keycloak
-      DB_PASSWORD: keycloak
-    depends_on:
-      - mariadb
-  mariadb:
-    image: mariadb:10.5
-    restart: always
     volumes:
-      - mariadb-data:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: keycloak
-      MYSQL_USER: keycloak
-      MYSQL_PASSWORD: keycloak
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-
-volumes:
-  mariadb-data:
+      - ./startup-scripts:/opt/jboss/startup-scripts/
