@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   fluentd:
@@ -9,4 +9,3 @@ services:
       - 24224:24224/udp
     volumes:
       - ./fluent.conf:/fluentd/etc/fluent.conf
-    network_mode: "host"

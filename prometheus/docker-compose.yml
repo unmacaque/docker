@@ -9,7 +9,6 @@ services:
     volumes:
       - prometheus-data:/prometheus
       - ./prometheus:/etc/prometheus/
-    network_mode: host
   alertmanager:
     image: prom/alertmanager:v0.21.0
     restart: always
@@ -18,7 +17,6 @@ services:
     volumes:
       - alertmanager-data:/alertmanager
       - ./alertmanager:/etc/alertmanager/
-    network_mode: host
 
 volumes:
   prometheus-data:
