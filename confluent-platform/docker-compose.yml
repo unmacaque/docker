@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.2.1
+    image: confluentinc/cp-zookeeper:6.2.0
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     volumes:
@@ -12,7 +12,7 @@ services:
     ports:
       - 2181:2181
   kafka:
-    image: confluentinc/cp-kafka:5.2.1
+    image: confluentinc/cp-kafka:6.2.0
     restart: always
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -25,7 +25,7 @@ services:
     depends_on:
       - zookeeper
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.2.1
+    image: confluentinc/cp-schema-registry:6.2.0
     restart: always
     environment:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
@@ -37,7 +37,7 @@ services:
     depends_on:
       - kafka
   kafka-rest:
-    image: confluentinc/cp-kafka-rest:5.2.1
+    image: confluentinc/cp-kafka-rest:6.2.0
     restart: always
     environment:
       KAFKA_REST_ZOOKEEPER_CONNECT: zookeeper:2181
