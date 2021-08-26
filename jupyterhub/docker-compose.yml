@@ -7,7 +7,7 @@ services:
       - 8000:8000
       - 8081:8081
     volumes:
-      - ./jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py
+      - ./jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py:ro
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - jupyterhub

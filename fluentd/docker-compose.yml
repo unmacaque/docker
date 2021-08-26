@@ -8,4 +8,4 @@ services:
       - 24224:24224
       - 24224:24224/udp
     volumes:
-      - ./fluent.conf:/fluentd/etc/fluent.conf
+      - ./fluent.conf:/fluentd/etc/fluent.conf:ro

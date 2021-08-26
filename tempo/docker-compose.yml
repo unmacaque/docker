@@ -11,5 +11,5 @@ services:
       - 14250:14250
       - 14268:14268
     volumes:
-      - ./tempo-local.yaml:/etc/tempo-local.yaml
+      - ./tempo-local.yaml:/etc/tempo-local.yaml:ro
     command: ["-config.file=/etc/tempo-local.yaml"]

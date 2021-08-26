@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   apache:
@@ -6,13 +6,13 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./htdocs:/usr/local/apache2/htdocs/
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - ./htdocs:/usr/local/apache2/htdocs/:ro
   php-fpm:
     image: php:7-fpm-alpine
     ports:
       - 9000:9000
     volumes:
-      - ./htdocs:/var/www/html
+      - ./htdocs:/var/www/html:ro
     links:
       - apache

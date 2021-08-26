@@ -8,7 +8,7 @@ services:
       - 9090:9090
     volumes:
       - prometheus-data:/prometheus
-      - ./prometheus:/etc/prometheus/
+      - ./prometheus:/etc/prometheus/:ro
   alertmanager:
     image: prom/alertmanager:v0.21.0
     restart: always
@@ -16,7 +16,7 @@ services:
       - 9093:9093
     volumes:
       - alertmanager-data:/alertmanager
-      - ./alertmanager:/etc/alertmanager/
+      - ./alertmanager:/etc/alertmanager/:ro
 
 volumes:
   prometheus-data:

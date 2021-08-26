@@ -10,4 +10,4 @@ services:
       KEYCLOAK_USER: keycloak
       KEYCLOAK_PASSWORD: keycloak
     volumes:
-      - ./startup-scripts:/opt/jboss/startup-scripts/
+      - ./startup-scripts:/opt/jboss/startup-scripts/:ro

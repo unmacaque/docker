@@ -6,4 +6,4 @@ services:
     command: ["test", "--pull", "--image", "alpine:latest", "--config", "config.yaml"]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./config.yaml:/config.yaml
+      - ./config.yaml:/config.yaml:ro

@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   elasticsearch:
@@ -26,7 +26,7 @@ services:
       - 9514:9514/udp
       - 9600:9600
     volumes:
-      - ./logstash.conf:/etc/logstash/logstash.conf
+      - ./logstash.conf:/etc/logstash/logstash.conf:ro
     links:
       - elasticsearch
 

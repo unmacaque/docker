@@ -1,10 +1,10 @@
-version: '3'
+version: "3"
 
 services:
   gatling:
     image: denvazh/gatling:3.2.0
     volumes:
-      - ./conf:/opt/gatling/conf
+      - ./conf:/opt/gatling/conf:ro
       - ./results:/opt/gatling/results
-      - ./user-files:/opt/gatling/user-files
+      - ./user-files:/opt/gatling/user-files:ro
     network_mode: host

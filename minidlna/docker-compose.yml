@@ -11,9 +11,9 @@ services:
       MINIDLNA_MEDIA_DIR_3: V,/media/video
       MINIDLNA_FRIENDLY_NAME: Docker
     volumes:
-      - ~/Music:/media/audio
-      - ~/Pictures:/media/pictures
-      - ~/Video:/media/video
+      - ~/Music:/media/audio:ro
+      - ~/Pictures:/media/pictures:ro
+      - ~/Video:/media/video:ro
       - minidlna-data:/var/lib/minidlna
 
 volumes:
