@@ -4,8 +4,8 @@ import scala.concurrent.duration._
 
 class TestSimulation extends Simulation {
 
-  val httpConf = http
-    .baseURL("http://localhost:8080")
+  val httpProtocol = http
+    .baseUrl("http://localhost:8080")
     .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
     .doNotTrackHeader("1")
     .acceptLanguageHeader("en-US,en;q=0.5")
@@ -18,6 +18,6 @@ class TestSimulation extends Simulation {
       .check(status.is(200)))
 
   setUp(
-    scn.inject(rampUsers(10) over (10 seconds))
-  ).protocols(httpConf)
+    scn.inject(rampUsers(10).during(10.seconds))
+  ).protocols(httpProtocol)
 }
