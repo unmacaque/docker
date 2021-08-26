@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   zookeeper:
@@ -10,7 +10,7 @@ services:
       - zk-data:/data
       - zk-datalog:/datalog
   kafka:
-    image: wurstmeister/kafka:2.13-2.6.0
+    image: wurstmeister/kafka:2.13-2.7.0
     restart: always
     ports:
       - 9092:9092
