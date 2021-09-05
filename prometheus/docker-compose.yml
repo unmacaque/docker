@@ -2,7 +2,7 @@ version: "3"
 
 services:
   prometheus:
-    image: prom/prometheus:v2.26.0
+    image: prom/prometheus:v2.29.0
     restart: always
     ports:
       - 9090:9090
@@ -10,7 +10,7 @@ services:
       - prometheus-data:/prometheus
       - ./prometheus:/etc/prometheus/:ro
   alertmanager:
-    image: prom/alertmanager:v0.21.0
+    image: prom/alertmanager:v0.23.0
     restart: always
     ports:
       - 9093:9093
