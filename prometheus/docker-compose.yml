@@ -17,6 +17,11 @@ services:
     volumes:
       - alertmanager-data:/alertmanager
       - ./alertmanager:/etc/alertmanager/:ro
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.19.0
+    restart: always
+    ports:
+      - 9115:9115
 
 volumes:
   prometheus-data:
