@@ -2,7 +2,7 @@ version: "3"
 
 services:
   container-structure-test:
-    image: gcr.io/gcp-runtimes/container-structure-test:v1.10.0
+    image: gcr.io/gcp-runtimes/container-structure-test:v1.11.0
     command: ["test", "--pull", "--image", "alpine:latest", "--config", "config.yaml"]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
