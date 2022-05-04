@@ -1,0 +1,6 @@
+extends: relaxed
+
+ignore: |
+  *.yaml
+  *.yml
+  !docker-compose.yml
