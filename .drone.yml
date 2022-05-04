@@ -4,7 +4,5 @@ name: build
 
 steps:
   - name: lint
-    image: python:3-alpine
-    commands:
-      - pip install yamllint
-      - yamllint -d relaxed .
+    image: plugins/yamllint
+    pull: never
