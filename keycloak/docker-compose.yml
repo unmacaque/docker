@@ -2,7 +2,7 @@ version: "3"
 
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:17.0.1
+    image: keycloak/keycloak:22.0.5
     restart: always
     command: start-dev --proxy edge
     environment:
