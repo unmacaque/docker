@@ -2,8 +2,7 @@ version: "3"
 
 services:
   keycloak:
-    image: keycloak/keycloak:23.0.7
-    restart: always
+    image: keycloak/keycloak:25.0
     command: start-dev --proxy edge
     environment:
       KEYCLOAK_ADMIN: admin
@@ -12,8 +11,8 @@ services:
     image: caddy:2-alpine
     restart: always
     ports:
-      - 80:80
-      - 443:443
+      - 8080:80
+      - 8443:443
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-config:/config
