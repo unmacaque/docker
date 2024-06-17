@@ -9,7 +9,6 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: keycloak
   caddy:
     image: caddy:2-alpine
-    restart: always
     ports:
       - 8080:80
       - 8443:443

@@ -3,7 +3,6 @@ version: "3"
 services:
   openldap:
     image: bitnami/openldap:2
-    restart: always
     ports:
       - 389:1389
       - 636:1636
@@ -12,7 +11,6 @@ services:
       - openldap-data:/bitnami/openldap
   phpldapadmin:
     image: osixia/phpldapadmin:stable
-    restart: always
     ports:
       - "8080:80"
       - "8443:443"

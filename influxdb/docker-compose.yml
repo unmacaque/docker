@@ -1,9 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   influxdb:
     image: influxdb:1.8-alpine
-    restart: always
     ports:
       - 2003:2003
       - 8086:8086

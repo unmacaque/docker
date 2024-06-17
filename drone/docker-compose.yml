@@ -1,9 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   drone:
     image: drone/drone:2
-    restart: always
     ports:
       - 8080:80
     environment:
@@ -16,7 +15,6 @@ services:
       - drone-data:/data
   drone-runner:
     image: drone/drone-runner-docker:1-linux-amd64
-    restart: always
     ports:
       - 3000:3000
     environment:

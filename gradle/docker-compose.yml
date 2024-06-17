@@ -1,9 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   gradle:
     image: gradle/build-cache-node:9.7
-    restart: always
     ports:
       - 5071:5071
     volumes:

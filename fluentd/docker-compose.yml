@@ -3,7 +3,6 @@ version: "3"
 services:
   fluentd:
     build: .
-    restart: always
     ports:
       - 24224:24224
       - 24224:24224/udp

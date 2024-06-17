@@ -13,7 +13,6 @@ services:
       - 2181:2181
   kafka:
     image: confluentinc/cp-kafka:6.2.0
-    restart: always
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://:9092
@@ -26,7 +25,6 @@ services:
       - zookeeper
   schema-registry:
     image: confluentinc/cp-schema-registry:6.2.0
-    restart: always
     environment:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
@@ -38,7 +36,6 @@ services:
       - kafka
   kafka-rest:
     image: confluentinc/cp-kafka-rest:6.2.0
-    restart: always
     environment:
       KAFKA_REST_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_REST_SCHEMA_REGISTRY_URL: http://schema-registry:8081

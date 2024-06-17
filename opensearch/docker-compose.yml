@@ -3,7 +3,6 @@ version: "3"
 services:
   opensearch:
     image: opensearchproject/opensearch:1.2.4
-    restart: always
     ports:
       - 9200:9200
       - 9600:9600
@@ -13,7 +12,6 @@ services:
       - opensearch-data:/usr/share/opensearch/data
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:1.2.0
-    restart: always
     ports:
       - 5601:5601
     depends_on:
