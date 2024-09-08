@@ -1,6 +1,6 @@
 services:
   portainer:
-    image: portainer/portainer-ce:2.5.1-alpine
+    image: portainer/portainer-ce:alpine-sts
     ports:
       - 9000:9000
     volumes:
