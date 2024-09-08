@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   gatling:
     image: denvazh/gatling:3.2.0

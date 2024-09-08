@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   archiso-build-baseline:
     build: .
