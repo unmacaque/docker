@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: grafana/grafana:10.1.5
+    image: grafana/grafana:11.1.5
     environment:
       GF_SECURITY_ADMIN_USER: grafana
       GF_SECURITY_ADMIN_PASSWORD: grafana
