@@ -1,0 +1,14 @@
+services:
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:8-rootless
+    container_name: forgejo
+    ports:
+      - 3000:3000
+      - 8022:8022
+    environment:
+      TZ: "Europe/Berlin"
+    volumes:
+      - forgejo-data:/var/lib/gitea
+
+volumes:
+  forgejo-data:
