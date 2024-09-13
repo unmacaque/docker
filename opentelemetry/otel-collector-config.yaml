@@ -5,8 +5,7 @@ receivers:
       http:
 
 exporters:
-  logging:
-    loglevel: debug
+  debug:
 
 processors:
   batch:
@@ -24,12 +23,12 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging]
+      exporters: [debug]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging]
+      exporters: [debug]
     logs:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging]
+      exporters: [debug]
