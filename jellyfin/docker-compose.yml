@@ -1,0 +1,12 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:10
+    ports:
+      - 8096:8096
+    volumes:
+      - jellyfin-cache:/cache
+      - jellyfin-config:/config
+
+volumes:
+  jellyfin-cache:
+  jellyfin-config:
