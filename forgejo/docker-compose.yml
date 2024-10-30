@@ -9,6 +9,12 @@ services:
       TZ: "Europe/Berlin"
     volumes:
       - forgejo-data:/var/lib/gitea
+    networks:
+      - forgejo
 
 volumes:
   forgejo-data:
+
+networks:
+  forgejo:
+    name: forgejo
