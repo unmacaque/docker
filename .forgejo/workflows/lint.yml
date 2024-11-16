@@ -4,4 +4,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: bewuethr/yamllint-action@v1
+      - uses: ./.forgejo/actions/yamllint
