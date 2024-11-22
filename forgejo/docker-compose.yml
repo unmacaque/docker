@@ -8,11 +8,13 @@ services:
     environment:
       TZ: "Europe/Berlin"
     volumes:
+      - forgejo-config:/etc/gitea
       - forgejo-data:/var/lib/gitea
     networks:
       - forgejo
 
 volumes:
+  forgejo-config:
   forgejo-data:
 
 networks:
