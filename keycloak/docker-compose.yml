@@ -1,20 +1,16 @@
 services:
   keycloak:
-    image: keycloak/keycloak:25.0
-    command: start-dev --proxy edge
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: keycloak
-  caddy:
-    image: caddy:2-alpine
+    image: quay.io/keycloak/keycloak:26.0.5
+    command: start-dev
     ports:
-      - 8080:80
-      - 8443:443
+      - 8080:8080
+      - 8443:8443
+      - 9000:9000
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: keycloak
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy-config:/config
-      - caddy-data:/data
+      - keycloak-data:/opt/keycloak/data/
 
 volumes:
-  caddy-config:
-  caddy-data:
+  keycloak-data:
