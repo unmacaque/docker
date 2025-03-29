@@ -17,6 +17,8 @@ services:
       sed -i -e 's|^  options:.*|  options: --volume=/var/run/docker.sock:/var/run/docker.sock|' config.yml ;
       sed -i -e 's|^  privileged: .*|  privileged: true|' config.yml ;
       sed -i -e 's|^  valid_volumes: .*|  valid_volumes: [\"**\"]|' config.yml ;
+      #sed -i -e 's|^  secret: .*|  secret: zZti23AxqNi89D3IyAea7uov064=|' config.yml ;
+      #sed -i -e 's|^  external_server: .*|  external_server: http://github-actions-cache-server:3000/|' config.yml ;
       forgejo-runner daemon --config config.yml
       "
 
