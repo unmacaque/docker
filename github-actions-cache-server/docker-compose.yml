@@ -1,0 +1,19 @@
+services:
+  github-actions-cache-server:
+    image: ghcr.io/falcondev-oss/github-actions-cache-server:latest
+    container_name: github-actions-cache-server
+    environment:
+      API_BASE_URL: http://github-actions-cache-server:3000
+      ENABLE_DIRECT_DOWNLOADS: "true"
+    volumes:
+      - github-actions-cache-server-data:/app/.data
+    networks:
+      - forgejo
+
+volumes:
+  github-actions-cache-server-data:
+
+networks:
+  forgejo:
+    name: forgejo
+    external: true
