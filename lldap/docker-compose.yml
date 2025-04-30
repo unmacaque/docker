@@ -1,0 +1,14 @@
+services:
+  lldap:
+    image: ghcr.io/lldap/lldap:latest-alpine-rootless
+    ports:
+      - 17170:17170
+    environment:
+      LLDAP_JWT_SECRET: "ssvu:.P;nd@sV(XUUXJQi#,GGjdo*1VM"
+      LLDAP_LDAP_BASE_DN: dc=example,dc=com
+      LLDAP_LDAP_USER_PASS: password
+    volumes:
+      - lldap-data:/data
+
+volumes:
+  lldap-data:
