@@ -1,0 +1,22 @@
+services:
+  k0s-controller:
+    image: ghcr.io/k0sproject/k0s:v1.33.1-k0s.1
+    container_name: k0s-controller
+    hostname: k0s-controller
+    restart: unless-stopped
+    network_mode: bridge
+    privileged: true
+    tmpfs:
+      - /run
+    devices:
+      - /dev/kmsg
+    volumes:
+      - k0s-data:/var/lib/k0s
+      - k0s-logs:/var/log/pods
+      - /dev/kmsg:/dev/kmsg:ro
+    ports:
+      - 6443:6443
+
+volumes:
+  k0s-data:
+  k0s-logs:
