@@ -1,0 +1,23 @@
+services:
+  litellm:
+    image: ghcr.io/berriai/litellm-non_root:main-stable
+    container_name: litellm
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://username:password@postgres/litellm
+      LITELLM_MASTER_KEY: sk-1234
+    ports:
+      - 4000:4000
+  postgres:
+    image: postgres:17
+    container_name: litellm-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: litellm
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
