@@ -1,0 +1,18 @@
+services:
+  seaweedfs:
+    image: chrislusf/seaweedfs:latest
+    container_name: seaweedfs
+    restart: unless-stopped
+    command: server -dir /data -s3
+    environment:
+      AWS_ACCESS_KEY_ID: admin
+      AWS_SECRET_ACCESS_KEY: secretaccesskey
+    volumes:
+      - seaweedfs-data:/data
+    ports:
+      - 8080:8080
+      - 8333:8333
+      - 9333:9333
+
+volumes:
+  seaweedfs-data:
