@@ -1,32 +1,110 @@
 services:
   prometheus:
-    image: prom/prometheus:v2.54.1
+    image: prom/prometheus:v3.5.0
     ports:
       - 9090:9090
+    configs:
+      - source: prometheus-config
+        target: /etc/prometheus/prometheus.yml
+      - source: prometheus-alerts-rules
+        target: /etc/prometheus/alerts.yml
     volumes:
       - prometheus-data:/prometheus
-      - ./prometheus:/etc/prometheus/:ro
   alertmanager:
-    image: prom/alertmanager:v0.27.0
+    image: prom/alertmanager:v0.28.1
     ports:
       - 9093:9093
+    configs:
+      - source: alertmanager-config
+        target: /etc/alertmanager/alertmanager.yml
     volumes:
       - alertmanager-data:/alertmanager
-      - ./alertmanager:/etc/alertmanager:ro
     command:
       - --config.file=/etc/alertmanager/alertmanager.yml
       - --cluster.listen-address=
   blackbox-exporter:
-    image: prom/blackbox-exporter:v0.25.0
+    image: prom/blackbox-exporter:v0.27.0
     ports:
       - 9115:9115
   node-exporter:
-    image: prom/node-exporter:v1.8.2
+    image: prom/node-exporter:v1.9.1
     network_mode: host
     volumes:
       - /:/host:ro,rslave
     command:
       - --path.rootfs=/host
+
+configs:
+  alertmanager-config:
+    content: |
+      global:
+        resolve_timeout: 5m
+
+      route:
+        receiver: webhook_receiver
+
+      receivers:
+          - name: webhook_receiver
+            webhook_configs:
+              - url: http://localhost:8080
+                send_resolved: false
+
+  prometheus-config:
+    content: |
+      global:
+        scrape_interval: 15s # By default, scrape targets every 15 seconds.
+
+        # Attach these labels to any time series or alerts when communicating with
+        # external systems (federation, remote storage, Alertmanager).
+        external_labels:
+          monitor: "codelab-monitor"
+
+      # A scrape configuration containing exactly one endpoint to scrape:
+      # Here it's Prometheus itself.
+      scrape_configs:
+        # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+        - job_name: "prometheus"
+
+          # Override the global default and scrape targets from this job every 5 seconds.
+          scrape_interval: 5s
+
+          static_configs:
+            - targets: ["localhost:9090", "alertmanager:9093"]
+
+        # https://github.com/prometheus/blackbox_exporter
+        - job_name: "blackbox"
+          metrics_path: /probe
+          params:
+            module: [http_2xx] # Look for a HTTP 200 response.
+          static_configs:
+            - targets:
+                - http://prometheus.io # Target to probe with http.
+                - https://prometheus.io # Target to probe with https.
+                - http://example.com:8080 # Target to probe with http on port 8080.
+          relabel_configs:
+            - source_labels: [__address__]
+              target_label: __param_target
+            - source_labels: [__param_target]
+              target_label: instance
+            - target_label: __address__
+              replacement: blackbox-exporter:9115 # The blackbox exporter's real hostname:port.
+
+      alerting:
+        alertmanagers:
+          - static_configs:
+              - targets: ["alertmanager:9093"]
+
+      rule_files:
+        - "alerts.yml"
+
+  prometheus-alerts-rules:
+    content: |
+      groups:
+        - name: prometheus
+          rules:
+            - alert: InstanceUp
+              expr: up == 0
+              for: 1m
 
 volumes:
   prometheus-data:
