@@ -2,6 +2,32 @@ services:
   container-structure-test:
     image: ghcr.io/googlecontainertools/container-structure-test:latest
     command: ["test", "--pull", "--image", "alpine:latest", "--config", "config.yaml"]
+    configs:
+      - source: container-structure-test-config
+        target: /config.yaml
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./config.yaml:/config.yaml:ro
+
+configs:
+  container-structure-test-config:
+    content: |
+      schemaVersion: 2.0.0
+
+      commandTests:
+        - name: apk exists
+          command: "apk"
+          args: ["--version"]
+          exitCode: 0
+          expectedOutput: ["apk-tools .*"]
+
+      fileExistenceTests:
+        - name: apk repositories exists
+          path: "/etc/apk/repositories"
+
+      fileContentTests:
+        - name: alpine-release exists
+          path: "/etc/alpine-release"
+          expectedContents: ["[0-9]+[.][0-9]+[.][0-9]+"]
+
+      metadataTest:
+        cmd: ["/bin/sh"]
