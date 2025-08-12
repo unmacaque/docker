@@ -1,0 +1,17 @@
+services:
+  versitygw:
+    image: ghcr.io/versity/versitygw:latest
+    container_name: versitygw
+    restart: unless-stopped
+    command: posix /mnt
+    ports:
+      - 7070:7070
+    environment:
+      ROOT_ACCESS_KEY: ${ROOT_ACCESS_KEY:-access}
+      ROOT_SECRET_KEY: ${ROOT_SECRET_KEY:-secret}
+      VGW_REGION: ${VGW_REGION:-eu-central-1}
+    volumes:
+      - versitygw-data:/mnt
+
+volumes:
+  versitygw-data:
