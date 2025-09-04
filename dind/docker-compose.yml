@@ -1,0 +1,9 @@
+services:
+  dind:
+    image: docker:dind
+    privileged: true
+    volumes:
+      - dind-data:/var/lib/docker
+
+volumes:
+  dind-data:
