@@ -1,6 +1,6 @@
 services:
   forgejo:
-    image: codeberg.org/forgejo/forgejo:10-rootless
+    image: codeberg.org/forgejo/forgejo:12-rootless
     container_name: forgejo
     ports:
       - 3000:3000
@@ -10,13 +10,7 @@ services:
     volumes:
       - forgejo-config:/etc/gitea
       - forgejo-data:/var/lib/gitea
-    networks:
-      - forgejo
 
 volumes:
   forgejo-config:
   forgejo-data:
-
-networks:
-  forgejo:
-    name: forgejo

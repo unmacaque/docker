@@ -1,31 +1,44 @@
 services:
-  forgejo-runner:
-    image: code.forgejo.org/forgejo/runner:5.0.0
-    container_name: forgejo-runner
-    user: 0:0
+  docker:
+    image: docker:dind
+    container_name: dind
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: /certs
     volumes:
+      - dind-certs:/certs
+      - dind-data:/var/lib/docker
+  forgejo-runner:
+    image: code.forgejo.org/forgejo/runner:11
+    container_name: forgejo-runner
+    depends_on:
+      docker:
+        condition: service_started
+    volumes:
+      - dind-certs:/certs:ro
       - forgejo-runner-data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - forgejo
+    env_file: .env
+    environment:
+      DOCKER_HOST: tcp://docker:2376
+      DOCKER_TLS_VERIFY: 1
+      DOCKER_CERT_PATH: /certs/client
+      FORGEJO_INSTANCE: ${FORGEJO_INSTANCE:-http://host.docker.internal:3000}
+      RUNNER_NAME: ${RUNNER_NAME:-forgejo-runner}
+      RUNNER_TOKEN: ${RUNNER_TOKEN}
     command: >-
       bash -c "
-      forgejo-runner create-runner-file --connect --instance ${FORGEJO_INSTANCE} --name runner --secret ${RUNNER_SECRET} ;
-      sed -i -e 's|\"labels\": null|\"labels\": [\"ubuntu-latest:docker://catthehacker/ubuntu:act-24.04\"]|' .runner ;
+      forgejo-runner register --no-interactive --token $${RUNNER_TOKEN} --name $${RUNNER_NAME} --instance $${FORGEJO_INSTANCE} ;
+      sed -i -e 's|\"labels\": null|\"labels\": [\"ubuntu-latest:docker://node:22-bookworm\"]|' .runner ;
       forgejo-runner generate-config > config.yml ;
-      sed -i -e 's|^  network: .*|  network: forgejo|' config.yml ;
-      sed -i -e 's|^  options:.*|  options: --volume=/var/run/docker.sock:/var/run/docker.sock|' config.yml ;
-      sed -i -e 's|^  privileged: .*|  privileged: true|' config.yml ;
+      sed -i -e 's|^  options:.*|  options: -v /certs/client:/certs/client|' config.yml ;
+      sed -i -e 's|^  privileged:.*|  privileged: true|' config.yml ;
       sed -i -e 's|^  valid_volumes: .*|  valid_volumes: [\"**\"]|' config.yml ;
-      #sed -i -e 's|^  secret: .*|  secret: zZti23AxqNi89D3IyAea7uov064=|' config.yml ;
-      #sed -i -e 's|^  external_server: .*|  external_server: http://github-actions-cache-server:3000/|' config.yml ;
       forgejo-runner daemon --config config.yml
       "
 
 volumes:
   forgejo-runner-data:
-
-networks:
-  forgejo:
-    name: forgejo
-    external: true
+  dind-certs:
+  dind-data:
