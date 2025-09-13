@@ -2,8 +2,6 @@ services:
   docker:
     image: docker:dind
     container_name: dind
-    extra_hosts:
-      - host.docker.internal:host-gateway
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: /certs
